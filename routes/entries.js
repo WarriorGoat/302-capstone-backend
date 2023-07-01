@@ -20,6 +20,6 @@ entryRoutes.patch("/update-one/:company", entryController.updateOneEntry);
 entryRoutes.delete("/delete-one/:company", entryController.deleteOneEntry);
 
 // This section will help you retrieve multiple records and sort them.
-entryRoutes.get('/get-many/:state', entryController.getManyEntries)
+entryRoutes.get("/get-many/:state", entryController.getManyEntries);
 
 module.exports = entryRoutes;

@@ -13,27 +13,26 @@ const validatePassword = async (password, hashedPassword) => {
 };
 
 const generateUserToken = (userData) => {
-	const exp = Math.floor(Date.now() / 1000) + 60 * 5;
-	const payload = {
-		userData,
-		exp: exp
-	}
-	
-	const jwtSecretKey = process.env.JWT_SECRET_KEY;
+  const exp = Math.floor(Date.now() / 1000) + 60 * 15;
+  const payload = {
+    userData,
+    exp: exp,
+  };
+
+  const jwtSecretKey = process.env.JWT_SECRET_KEY;
   const token = jwt.sign(payload, jwtSecretKey);
   return token;
 };
 
 const verifyToken = (token) => {
-	const jwtSecretKey = process.env.JWT_SECRET_KEY;
-	const verified = jwt.verify(token, jwtSecretKey);
-	// console.log(verified)
-	return verified
-}
+  const jwtSecretKey = process.env.JWT_SECRET_KEY;
+  const verified = jwt.verify(token, jwtSecretKey);
+  return verified;
+};
 
 module.exports = {
   generatePasswordHash,
   validatePassword,
-	generateUserToken,
-	verifyToken
+  generateUserToken,
+  verifyToken,
 };
