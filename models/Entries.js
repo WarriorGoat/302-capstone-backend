@@ -11,11 +11,11 @@ const entrySchema = new mongoose.Schema({
   contactEmail: String,
   webAddress: String,
   companyAddress: {
-    streetNum: Number,
+    streetNum: String,
     streetName: String,
     city: String,
     state: String,
-    zipCode: Number
+    zipCode: String
   },
   licenseInfo: {
     licenseState: String,

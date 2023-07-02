@@ -30,6 +30,7 @@ const registration = async (req, res, next) => {
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
+    const scope = req.body.scope
 
     const saltRounds = 10;
 
@@ -40,6 +41,7 @@ const registration = async (req, res, next) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      scope: scope,
       password: passwordHash,
     });
 
@@ -63,6 +65,8 @@ const registration = async (req, res, next) => {
 // This section will allow a registered user to log in.
 const logIn = async (req, res, next) => {
   try {
+    console.log("backend login request received")
+    console.log (req)
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
@@ -70,6 +74,7 @@ const logIn = async (req, res, next) => {
       return;
     } else {
       console.log("User Found");
+      console.log (user)
     }
 
     const isPWValid = await validatePassword(req.body.password, user.password);
@@ -82,14 +87,14 @@ const logIn = async (req, res, next) => {
       console.log("Password Valid");
     }
 
-    const userType = user.email.includes("admin.com") ? "admin" : "user";
+    // const userType = user.email.includes("admin.com") ? "admin" : "user";
     const data = {
       date: new Date(),
       id: user._id,
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      scope: userType,
+      scope: user.scope,
     };
 
     const token = generateUserToken(data);
@@ -97,7 +102,7 @@ const logIn = async (req, res, next) => {
       success: true,
       token: token,
       email: user.email,
-      scope: userType,
+      scope: user.scope,
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -105,6 +110,7 @@ const logIn = async (req, res, next) => {
     console.log(token);
     return;
   } catch (error) {
+    console.log("error on starting logIn controller")
     console.error(error);
     res.json({ success: false, message: error.toString() });
   }
@@ -119,7 +125,7 @@ const authtoken = async (req, res) => {
         email: req.decoded.userData.email,
         firstName: req.decoded.userData.firstName,
         lastName: req.decoded.userData.lastName,
-        // user: req.decoded,
+        scope: req.decoded.userData.scope,
         message: "Successful Token Login!!",
       });
     } catch (error) {
@@ -153,6 +159,13 @@ const message = (req, res, next) => {
       return res.json({
         success: true,
         message: `I am a normal user with email: ${userData.email}`,
+      });
+    }
+
+    if (userData && userData.scope === "contractor") {
+      return res.json({
+        success: true,
+        message: `I am a contractor with email: ${userData.email}`,
       });
     }
 

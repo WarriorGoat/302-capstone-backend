@@ -8,10 +8,7 @@ const userSchema = new mongoose.Schema({
   lastName: String,
   email: String,
   password: String,
-  scope: {
-    type: String,
-    default: "user",
-  },
+  scope: String,
   id: { type: String, default: () => uuidv4() },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

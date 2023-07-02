@@ -8,7 +8,8 @@ const createUser = (params) => {
         email: params.email,
         password: params.password,
         firstName: params.firstName,
-        lastName: params.lastName
+        lastName: params.lastName, 
+        scope: params.scope
     })
     return newUser
 }
