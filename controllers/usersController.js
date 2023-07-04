@@ -189,6 +189,19 @@ const message = (req, res, next) => {
 const updateUser = async (req, res, next) => {
   console.log("Entered updateUser")
   console.log(req.params)
+
+     //parse out fields from POST request
+    //  const firstName = req.body.firstName;
+    //  const lastName = req.body.lastName;
+    //  const email = req.body.email;
+    //  const password = req.body.password;
+    //  const scope = req.body.scope
+
+    //  const saltRounds = 10;
+
+    //  const passwordHash = await generatePasswordHash(password, saltRounds);
+ 
+
   try {
     const userEmailToFind = req.params.email;
     const originalUser = await User.findOne({
@@ -206,6 +219,7 @@ const updateUser = async (req, res, next) => {
       {
         $inc: { __v: 1 },
         $set: {
+          scope: req.body.scope,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
