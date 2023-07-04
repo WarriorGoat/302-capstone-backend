@@ -30,7 +30,7 @@ const registration = async (req, res, next) => {
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
-    const scope = req.body.scope
+    const scope = req.body.scope;
 
     const saltRounds = 10;
 
@@ -65,8 +65,8 @@ const registration = async (req, res, next) => {
 // This section will allow a registered user to log in.
 const logIn = async (req, res, next) => {
   try {
-    console.log("backend login request received")
-    console.log (req)
+    console.log("backend login request received");
+    console.log(req);
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
@@ -74,7 +74,7 @@ const logIn = async (req, res, next) => {
       return;
     } else {
       console.log("User Found");
-      console.log (user)
+      console.log(user);
     }
 
     const isPWValid = await validatePassword(req.body.password, user.password);
@@ -110,7 +110,7 @@ const logIn = async (req, res, next) => {
     console.log(token);
     return;
   } catch (error) {
-    console.log("error on starting logIn controller")
+    console.log("error on starting logIn controller");
     console.error(error);
     res.json({ success: false, message: error.toString() });
   }
@@ -187,20 +187,19 @@ const message = (req, res, next) => {
 
 //Update user data, except loginId & Password
 const updateUser = async (req, res, next) => {
-  console.log("Entered updateUser")
-  console.log(req.params)
+  console.log("Entered updateUser");
+  console.log(req.params);
 
-     //parse out fields from POST request
-    //  const firstName = req.body.firstName;
-    //  const lastName = req.body.lastName;
-    //  const email = req.body.email;
-    //  const password = req.body.password;
-    //  const scope = req.body.scope
+  //parse out fields from POST request
+  //  const firstName = req.body.firstName;
+  //  const lastName = req.body.lastName;
+  //  const email = req.body.email;
+  //  const password = req.body.password;
+  //  const scope = req.body.scope
 
-    //  const saltRounds = 10;
+  //  const saltRounds = 10;
 
-    //  const passwordHash = await generatePasswordHash(password, saltRounds);
- 
+  //  const passwordHash = await generatePasswordHash(password, saltRounds);
 
   try {
     const userEmailToFind = req.params.email;
