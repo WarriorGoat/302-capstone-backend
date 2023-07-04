@@ -187,6 +187,8 @@ const message = (req, res, next) => {
 
 //Update user data, except loginId & Password
 const updateUser = async (req, res, next) => {
+  console.log("Entered updateUser")
+  console.log(req.params)
   try {
     const userEmailToFind = req.params.email;
     const originalUser = await User.findOne({
