@@ -39,9 +39,9 @@ app.use(cors());
 app.options("*", cors());
 
 //register routes
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/entries", entriesRouter);
+app.use("/api/", indexRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/entries", entriesRouter);
 
 // catch 404 and forward to 404 error page
 app.all("*", (req, res) => {
